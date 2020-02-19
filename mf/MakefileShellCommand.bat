@@ -8,39 +8,45 @@ GOTO end
 
 REM =========================================================================
 :cmd_mkdir
-IF NOT EXIST %2 GOTO do_mkdir
+IF NOT EXIST %2 GOTO run_mkdir
 GOTO end
 
-:do_mkdir
-@echo mkdir %2
-mkdir %2
+:run_mkdir
+SET MakefileShellCommand_Variable=%2
+SET MakefileShellCommand_Variable=%MakefileShellCommand_Variable:/=\%
+
+@echo mkdir %MakefileShellCommand_Variable%
+mkdir %MakefileShellCommand_Variable%
+
 GOTO end
 
 REM =========================================================================
 :cmd_rmdir
-IF EXIST %2 goto do_rmdir
+IF EXIST %2 goto run_rmdir
 goto end
 
-:do_rmdir
-@ECHO rmdir %2
-REM del /s /q %2
-rmdir /S /Q %2
+:run_rmdir
+SET MakefileShellCommand_Variable=%2
+SET MakefileShellCommand_Variable=%MakefileShellCommand_Variable:/=\%
+
+@ECHO rmdir /S /Q %MakefileShellCommand_Variable%
+rmdir /S /Q %MakefileShellCommand_Variable%
+
 GOTO end
 
 
 REM =========================================================================
 :cmd_rm
-IF EXIST %2 goto do_rm
+IF EXIST %2 goto run_rm
 goto end
 
-:do_rm
+:run_rm
 SET MakefileShellCommand_Variable=%2
 SET MakefileShellCommand_Variable=%MakefileShellCommand_Variable:/=\%
-@ECHO rm %MakefileShellCommand_Variable%
+
+@ECHO del /q %MakefileShellCommand_Variable%
 del /q %MakefileShellCommand_Variable%
 
-REM @ECHO rm %2
-REM del /q %2
 GOTO end
 
 
