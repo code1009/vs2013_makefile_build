@@ -112,22 +112,22 @@ endif
 # intermedia file creation
 # ===========================================================================
 # ---------------------------------------------------------------------------
-#%.obj: %.cpp
-#$(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 #	@echo INPUT=$^ OUTPUT=$@ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
+$(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+
 
 
 # ---------------------------------------------------------------------------
-#%.res: %.rc
-#$(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
 $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
 #	@echo INPUT=$^ OUTPUT=$@ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(RESOURCE_COMPILER) $(RESOURCE_COMPILER_FLAGS) /fo"$@" $<
+
+$(RESOURCE_OBJECT_FILE): $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.obj: $(RESOURCE_BASE_DIRECTORY)/%.cpp
 
 
 
@@ -141,7 +141,6 @@ $(OUTPUT_FILE): $(OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(LINKER) $(LINKER_FLAGS) /PDB:"$(subst .exe,.pdb,$@)" /OUT:"$@" $(OBJECT_FILE) $(LIBRARY_FILE) $(RESOURCE_OBJECT_FILE)
 	$(MANIFEST_TOOL) $(MANIFEST_TOOL_FLAGS) -manifest $(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.intermediate.manifest -outputresource:$(OUTPUT_FILE);1
-#	$(MANIFEST_TOOL) $(MANIFEST_TOOL_FLAGS) /out:"$(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.embed.manifest" "$(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.embed.manifest.res"
 
 
 
@@ -234,15 +233,16 @@ logo:
 # ===========================================================================
 .PHONY: check
 check:
-	@echo OUTPUT_BASE_DIRECTORY   = $(OUTPUT_BASE_DIRECTORY)
-	@echo OUTPUT_FILE             = $(OUTPUT_FILE)
-	@echo OBJECT_BASE_DIRECTORY   = $(OBJECT_BASE_DIRECTORY)
-	@echo OBJECT_FILE             = $(OBJECT_FILE)
-	@echo RESOURCE_BASE_DIRECTORY = $(RESOURCE_BASE_DIRECTORY)
-	@echo RESOURCE_OBJECT_FILE    = $(RESOURCE_OBJECT_FILE)
-	@echo RESOURCE_FILE           = $(RESOURCE_FILE)
-	@echo SOURCE_BASE_DIRECTORY   = $(SOURCE_BASE_DIRECTORY)
-	@echo SOURCE_FILE             = $(SOURCE_FILE)
+	@echo OUTPUT_BASE_DIRECTORY          = $(OUTPUT_BASE_DIRECTORY)
+	@echo OUTPUT_FILE                    = $(OUTPUT_FILE)
+	@echo RESOURCE_OBJECT_BASE_DIRECTORY = $(RESOURCE_OBJECT_BASE_DIRECTORY)
+	@echo RESOURCE_OBJECT_FILE           = $(RESOURCE_OBJECT_FILE)
+	@echo OBJECT_BASE_DIRECTORY          = $(OBJECT_BASE_DIRECTORY)
+	@echo OBJECT_FILE                    = $(OBJECT_FILE)
+	@echo SOURCE_BASE_DIRECTORY          = $(SOURCE_BASE_DIRECTORY)
+	@echo SOURCE_FILE                    = $(SOURCE_FILE)
+	@echo RESOURCE_BASE_DIRECTORY        = $(RESOURCE_BASE_DIRECTORY)
+	@echo RESOURCE_FILE                  = $(RESOURCE_FILE)
 
 
 
@@ -252,7 +252,7 @@ check:
 # rebuild
 # ===========================================================================
 .PHONY: rebuild
-rebuild: logo clean compile link
+rebuild: logo check clean compile link
 
 
 
@@ -262,7 +262,7 @@ rebuild: logo clean compile link
 # build
 # ===========================================================================
 .PHONY: build
-build: logo compile link
+build: logo check compile link
 
 
 

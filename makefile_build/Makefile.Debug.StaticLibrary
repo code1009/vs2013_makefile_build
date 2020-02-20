@@ -75,6 +75,8 @@ $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
+$(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+
 
 
 
@@ -192,7 +194,7 @@ check:
 # rebuild
 # ===========================================================================
 .PHONY: rebuild
-rebuild: logo clean compile link
+rebuild: logo check clean compile link
 
 
 
@@ -202,7 +204,7 @@ rebuild: logo clean compile link
 # build
 # ===========================================================================
 .PHONY: build
-build: logo compile link
+build: logo check compile link
 
 
 

@@ -28,7 +28,8 @@ OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.lib
 # ---------------------------------------------------------------------------
 SOURCE_FILE = \
 	$(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp \
-	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.cpp 
+	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.cpp \
+	$(SOURCE_BASE_DIRECTORY)/SubDir/TestLibrary3.cpp 
 
 
 

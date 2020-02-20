@@ -23,13 +23,14 @@
 
 extern int sum(int,int);
 extern int sub(int,int);
+extern int mul(int,int);
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
 	char text[32];
 	
-	sprintf(text, "%d %d", sum(1,2), sub(1,2));
+	sprintf(text, "sum()=%d sub()=%d mul()=%d", sum(1,2), sub(1,2), mul(1,2));
 	MessageBox (NULL, text, "test", MB_OK);
 
 	return 0;

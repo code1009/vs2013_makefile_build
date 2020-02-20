@@ -82,6 +82,15 @@ $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 
 
 # ===========================================================================
+# object file creation
+# ===========================================================================
+$(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+
+
+
+
+
+# ===========================================================================
 # output file creation
 # ===========================================================================
 $(OUTPUT_FILE): $(OBJECT_FILE)
@@ -194,7 +203,7 @@ check:
 # rebuild
 # ===========================================================================
 .PHONY: rebuild
-rebuild: logo clean compile link
+rebuild: logo check clean compile link
 
 
 
@@ -204,7 +213,7 @@ rebuild: logo clean compile link
 # build
 # ===========================================================================
 .PHONY: build
-build: logo compile link
+build: logo check compile link
 
 
 

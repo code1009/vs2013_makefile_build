@@ -10,6 +10,9 @@
     <Filter Include="makefile_build">
       <UniqueIdentifier>{7d2145b4-3cec-4538-a71e-9273e998f364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\SubDir">
+      <UniqueIdentifier>{a1c8ad89-883c-481f-a5b4-c650678e0226}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\TestApplication.cpp">
@@ -20,6 +23,9 @@
     </ClCompile>
     <ClCompile Include="source\TestLibrary2.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SubDir\TestLibrary3.cpp">
+      <Filter>source\SubDir</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
