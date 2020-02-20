@@ -35,7 +35,51 @@ SOURCE_FILE = \
 
 
 # ===========================================================================
+#$(OBJECT_BASE_DIRECTORY)/TestLibrary1.obj: $(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp
+#	@echo INPUT=$^ OUTPUT=$@ 
+#	@Makefile.ShellCommand.bat mkdir $(@D)
+#	@cl \
+#	/nologo \
+#	/GS \
+#	/analyze- \
+#	/W3 \
+#	/Zc:wchar_t \
+#	/Zi \
+#	/Gm \
+#	/Od \
+#	/fp:precise \
+#	/errorReport:prompt \
+#	/WX- \
+#	/Zc:forScope \
+#	/RTC1 \
+#	/Gd \
+#	/Oy- \
+#	/MTd \
+#	/EHsc \
+#	/D "WIN32" /D "_DEBUG" /D "_CRT_SECURE_NO_WARNINGS" /D "_WINSOCK_DEPRECATED_NO_WARNINGS" /D "_LIB" /D "_MBCS" \
+#	/D "XXX" \
+#	/Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
+#	@echo TestLibrary1.cpp END OF COMPILING.
+#	@echo .
+
+
+
+
+
+# ===========================================================================
 include Makefile.Debug.StaticLibrary
+
+
+
+
+
+# ===========================================================================
+$(OBJECT_BASE_DIRECTORY)/TestLibrary1.obj: $(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp
+	@echo INPUT=$^ OUTPUT=$@ 
+	@Makefile.ShellCommand.bat mkdir $(@D)
+	$(COMPILER) $(COMPILER_FLAGS_CPP) /D "XXX" /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
+	@echo TestLibrary1.cpp END OF COMPILING.
+	@echo .
 
 
 
