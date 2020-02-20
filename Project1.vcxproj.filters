@@ -45,25 +45,13 @@
     <None Include="makefile_build\Makefile.Debug.Application">
       <Filter>makefile_build</Filter>
     </None>
-    <None Include="makefile_build\Makefile.Debug.Application.Test">
-      <Filter>makefile_build</Filter>
-    </None>
     <None Include="makefile_build\Makefile.Debug.StaticLibrary">
-      <Filter>makefile_build</Filter>
-    </None>
-    <None Include="makefile_build\Makefile.Debug.StaticLibrary.Test">
       <Filter>makefile_build</Filter>
     </None>
     <None Include="makefile_build\Makefile.Release.Application">
       <Filter>makefile_build</Filter>
     </None>
-    <None Include="makefile_build\Makefile.Release.Application.Test">
-      <Filter>makefile_build</Filter>
-    </None>
     <None Include="makefile_build\Makefile.Release.StaticLibrary">
-      <Filter>makefile_build</Filter>
-    </None>
-    <None Include="makefile_build\Makefile.Release.StaticLibrary.Test">
       <Filter>makefile_build</Filter>
     </None>
     <None Include="makefile_build\Makefile.ShellCommand.bat">
@@ -73,6 +61,18 @@
       <Filter>makefile_build</Filter>
     </None>
     <None Include="makefile_build\libiconv2.dll">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Project.Makefile.Debug.Application.Test">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Project.Makefile.Release.StaticLibrary.Test">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Project.Makefile.Release.Application.Test">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Project.Makefile.Debug.StaticLibrary.Test">
       <Filter>makefile_build</Filter>
     </None>
   </ItemGroup>

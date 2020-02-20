@@ -28,13 +28,13 @@
     <None Include="makefile_build\make.exe" />
     <None Include="makefile_build\Makefile" />
     <None Include="makefile_build\Makefile.Debug.Application" />
-    <None Include="makefile_build\Makefile.Debug.Application.Test" />
+    <None Include="makefile_build\Project.Makefile.Debug.Application.Test" />
     <None Include="makefile_build\Makefile.Debug.StaticLibrary" />
-    <None Include="makefile_build\Makefile.Debug.StaticLibrary.Test" />
+    <None Include="makefile_build\Project.Makefile.Debug.StaticLibrary.Test" />
     <None Include="makefile_build\Makefile.Release.Application" />
-    <None Include="makefile_build\Makefile.Release.Application.Test" />
+    <None Include="makefile_build\Project.Makefile.Release.Application.Test" />
     <None Include="makefile_build\Makefile.Release.StaticLibrary" />
-    <None Include="makefile_build\Makefile.Release.StaticLibrary.Test" />
+    <None Include="makefile_build\Project.Makefile.Release.StaticLibrary.Test" />
     <None Include="makefile_build\Makefile.ShellCommand.bat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

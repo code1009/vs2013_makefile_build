@@ -9,16 +9,16 @@
 # ---------------------------------------------------------------------------
 .PHONY: debug_clean
 debug_clean:
-	make -f Makefile.Debug.StaticLibrary.Test clean
-	make -f Makefile.Debug.Application.Test   clean
+	make -f Project.Makefile.Debug.StaticLibrary.Test clean
+	make -f Project.Makefile.Debug.Application.Test   clean
 
 
 
 # ---------------------------------------------------------------------------
 .PHONY: debug_build
 debug_build:
-	make -f Makefile.Debug.StaticLibrary.Test build
-	make -f Makefile.Debug.Application.Test   build
+	make -f Project.Makefile.Debug.StaticLibrary.Test build
+	make -f Project.Makefile.Debug.Application.Test   build
 
 
 
@@ -36,16 +36,16 @@ debug_rebuild: debug_clean debug_build
 # ---------------------------------------------------------------------------
 .PHONY: release_clean
 release_clean:
-	make -f Makefile.Release.StaticLibrary.Test clean
-	make -f Makefile.Release.Application.Test   clean
+	make -f Project.Makefile.Release.StaticLibrary.Test clean
+	make -f Project.Makefile.Release.Application.Test   clean
 
 
 
 # ---------------------------------------------------------------------------
 .PHONY: release_build
 release_build:
-	make -f Makefile.Release.StaticLibrary.Test build
-	make -f Makefile.Release.Application.Test   build
+	make -f Project.Makefile.Release.StaticLibrary.Test build
+	make -f Project.Makefile.Release.Application.Test   build
 
 
 
