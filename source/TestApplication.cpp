@@ -31,10 +31,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpst
 	char text[1024];
 	int a,b;
 
+
 	a=2;
 	b=2;
 
-	sprintf(text, "sum(%d,%d)=%d\r\nsub(%d,%d)=%d\r\nmul(%d,%d)=%d\r\ndiv(%d,%d)=%d", 
+	sprintf(text, 
+		"sum(%d,%d)=%d\r\n" 
+		"sub(%d,%d)=%d\r\n" 
+		"mul(%d,%d)=%d\r\n" 
+		"div(%d,%d)=%d", 
 		a,b,my_sum(a,b), 
 		a,b,my_sub(a,b), 
 		a,b,my_mul(a,b), 
