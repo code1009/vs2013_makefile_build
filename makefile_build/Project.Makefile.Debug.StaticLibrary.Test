@@ -26,10 +26,12 @@ OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.lib
 # ---------------------------------------------------------------------------
 # input file
 # ---------------------------------------------------------------------------
-SOURCE_FILE = \
+CPP_SOURCE_FILE = \
 	$(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp \
-	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.cpp \
 	$(SOURCE_BASE_DIRECTORY)/SubDir/TestLibrary3.cpp 
+
+C_SOURCE_FILE = \
+	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.c \
 
 
 
@@ -37,7 +39,7 @@ SOURCE_FILE = \
 
 # ===========================================================================
 #$(OBJECT_BASE_DIRECTORY)/TestLibrary1.obj: $(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp
-#	@echo INPUT=$^ OUTPUT=$@ 
+#	@echo OUTPUT=$@ INPUT=$^ 
 #	@Makefile.ShellCommand.bat mkdir $(@D)
 #	@cl \
 #	/nologo \
@@ -76,7 +78,7 @@ include Makefile.Debug.StaticLibrary
 
 # ===========================================================================
 $(OBJECT_BASE_DIRECTORY)/TestLibrary1.obj: $(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp
-	@echo INPUT=$^ OUTPUT=$@ 
+	@echo OUTPUT=$@ INPUT=$^ 
 	@Makefile.ShellCommand.bat mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /D "XXX" /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 	@echo TestLibrary1.cpp END OF COMPILING.

@@ -2,10 +2,16 @@
 # intermedia file
 # ===========================================================================
 # ---------------------------------------------------------------------------
-OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(SOURCE_FILE))
-OBJECT_FILE_1 = $(subst .cpp,.obj,$(OBJECT_FILE_0))
-OBJECT_FILE_2 = $(subst .c,.obj,$(OBJECT_FILE_1))
-OBJECT_FILE   = $(OBJECT_FILE_2)
+CPP_OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(CPP_SOURCE_FILE))
+CPP_OBJECT_FILE_1 = $(subst .cpp,.obj,$(CPP_OBJECT_FILE_0))
+CPP_OBJECT_FILE   = $(CPP_OBJECT_FILE_1)
+
+
+
+# ---------------------------------------------------------------------------
+C_OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(C_SOURCE_FILE))
+C_OBJECT_FILE_1 = $(subst .c,.obj,$(C_OBJECT_FILE_0))
+C_OBJECT_FILE   = $(C_OBJECT_FILE_1)
 
 
 
@@ -72,19 +78,24 @@ endif
 # ===========================================================================
 # intermedia file creation
 # ===========================================================================
+# ---------------------------------------------------------------------------
 $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
-#	@echo INPUT=$^ OUTPUT=$@ 
+	@echo OUTPUT=$@ INPUT=$^ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
+$(CPP_OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 
 
 
+# ---------------------------------------------------------------------------
+$(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.c
+	@echo OUTPUT=$@ INPUT=$^ 
+	$(SHELL_COMMAND) mkdir $(@D)
+	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
-# ===========================================================================
-# object file creation
-# ===========================================================================
-$(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+$(C_OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.c
+
 
 
 
@@ -93,8 +104,8 @@ $(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 # ===========================================================================
 # output file creation
 # ===========================================================================
-$(OUTPUT_FILE): $(OBJECT_FILE)
-#	@echo INPUT=$^ OUTPUT=$@ 
+$(OUTPUT_FILE): $(C_OBJECT_FILE) $(CPP_OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
+	@echo OUTPUT=$@ INPUT=$^ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(LIBRARY_MANAGER) $(LIBRARY_MANAGER_FLAGS) /out:$@ $^
 
@@ -118,7 +129,7 @@ compile_end:
 	@echo .
 
 .PHONY: compile_run
-compile_run: $(OBJECT_FILE)
+compile_run: $(C_OBJECT_FILE) $(CPP_OBJECT_FILE)
 
 .PHONY: compile
 compile: compile_begin compile_run compile_end
@@ -191,9 +202,11 @@ check:
 	@echo OUTPUT_BASE_DIRECTORY = $(OUTPUT_BASE_DIRECTORY)
 	@echo OUTPUT_FILE           = $(OUTPUT_FILE)
 	@echo OBJECT_BASE_DIRECTORY = $(OBJECT_BASE_DIRECTORY)
-	@echo OBJECT_FILE           = $(OBJECT_FILE)
+	@echo CPP_OBJECT_FILE       = $(CPP_OBJECT_FILE)
+	@echo C_OBJECT_FILE         = $(C_OBJECT_FILE)
 	@echo SOURCE_BASE_DIRECTORY = $(SOURCE_BASE_DIRECTORY)
-	@echo SOURCE_FILE           = $(SOURCE_FILE)
+	@echo CPP_SOURCE_FILE       = $(CPP_SOURCE_FILE)
+	@echo C_SOURCE_FILE         = $(C_SOURCE_FILE)
 
 
 

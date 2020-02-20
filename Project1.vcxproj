@@ -13,8 +13,9 @@
   <ItemGroup>
     <ClCompile Include="source\SubDir\TestLibrary3.cpp" />
     <ClCompile Include="source\TestApplication.cpp" />
+    <ClCompile Include="source\TestApplicationSub.c" />
     <ClCompile Include="source\TestLibrary1.cpp" />
-    <ClCompile Include="source\TestLibrary2.cpp" />
+    <ClCompile Include="source\TestLibrary2.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\resource.h" />

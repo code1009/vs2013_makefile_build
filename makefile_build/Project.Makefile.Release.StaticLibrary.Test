@@ -26,10 +26,12 @@ OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.lib
 # ---------------------------------------------------------------------------
 # input file
 # ---------------------------------------------------------------------------
-SOURCE_FILE = \
+CPP_SOURCE_FILE = \
 	$(SOURCE_BASE_DIRECTORY)/TestLibrary1.cpp \
-	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.cpp \
 	$(SOURCE_BASE_DIRECTORY)/SubDir/TestLibrary3.cpp 
+
+C_SOURCE_FILE = \
+	$(SOURCE_BASE_DIRECTORY)/TestLibrary2.c \
 
 
 

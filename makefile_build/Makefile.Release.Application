@@ -2,17 +2,23 @@
 # intermedia file
 # ===========================================================================
 # ---------------------------------------------------------------------------
-RESOURCE_OBJECT_FILE_0 = $(subst $(RESOURCE_BASE_DIRECTORY),$(RESOURCE_OBJECT_BASE_DIRECTORY),$(RESOURCE_FILE))
-RESOURCE_OBJECT_FILE_1 = $(subst .rc,.res,$(RESOURCE_OBJECT_FILE_0))
-RESOURCE_OBJECT_FILE   = $(RESOURCE_OBJECT_FILE_1)
+CPP_OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(CPP_SOURCE_FILE))
+CPP_OBJECT_FILE_1 = $(subst .cpp,.obj,$(CPP_OBJECT_FILE_0))
+CPP_OBJECT_FILE   = $(CPP_OBJECT_FILE_1)
 
 
 
 # ---------------------------------------------------------------------------
-OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(SOURCE_FILE))
-OBJECT_FILE_1 = $(subst .cpp,.obj,$(OBJECT_FILE_0))
-OBJECT_FILE_2 = $(subst .c,.obj,$(OBJECT_FILE_1))
-OBJECT_FILE   = $(OBJECT_FILE_2)
+C_OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(C_SOURCE_FILE))
+C_OBJECT_FILE_1 = $(subst .c,.obj,$(C_OBJECT_FILE_0))
+C_OBJECT_FILE   = $(C_OBJECT_FILE_1)
+
+
+
+# ---------------------------------------------------------------------------
+RESOURCE_OBJECT_FILE_0 = $(subst $(RESOURCE_BASE_DIRECTORY),$(RESOURCE_OBJECT_BASE_DIRECTORY),$(RESOURCE_FILE))
+RESOURCE_OBJECT_FILE_1 = $(subst .rc,.res,$(RESOURCE_OBJECT_FILE_0))
+RESOURCE_OBJECT_FILE   = $(RESOURCE_OBJECT_FILE_1)
 
 
 
@@ -97,7 +103,6 @@ SHELL_COMMAND = @Makefile.ShellCommand.bat
 
 
 
-# ===========================================================================
 # ---------------------------------------------------------------------------
 ifeq '$(MAKECMDGOALS)' ''
 prepared_error:
@@ -113,21 +118,31 @@ endif
 # ===========================================================================
 # ---------------------------------------------------------------------------
 $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
-#	@echo INPUT=$^ OUTPUT=$@ 
+	@echo OUTPUT=$@ INPUT=$^ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
-$(OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+$(CPP_OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
+
+
+
+# ---------------------------------------------------------------------------
+$(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.c
+	@echo OUTPUT=$@ INPUT=$^ 
+	$(SHELL_COMMAND) mkdir $(@D)
+	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
+
+$(C_OBJECT_FILE): $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.c
 
 
 
 # ---------------------------------------------------------------------------
 $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
-#	@echo INPUT=$^ OUTPUT=$@ 
+	@echo OUTPUT=$@ INPUT=$^ 
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(RESOURCE_COMPILER) $(RESOURCE_COMPILER_FLAGS) /fo"$@" $<
 
-$(RESOURCE_OBJECT_FILE): $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.obj: $(RESOURCE_BASE_DIRECTORY)/%.cpp
+$(RESOURCE_OBJECT_FILE): $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
 
 
 
@@ -136,10 +151,10 @@ $(RESOURCE_OBJECT_FILE): $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.obj: $(RESOURCE_BAS
 # ===========================================================================
 # output file creation
 # ===========================================================================
-$(OUTPUT_FILE): $(OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
-#	@echo INPUT=$^ OUTPUT=$@ 
+$(OUTPUT_FILE): $(C_OBJECT_FILE) $(CPP_OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
+	@echo OUTPUT=$@ INPUT=$^ 
 	$(SHELL_COMMAND) mkdir $(@D)
-	$(LINKER) $(LINKER_FLAGS) /PDB:"$(subst .exe,.pdb,$@)" /OUT:"$@" $(OBJECT_FILE) $(LIBRARY_FILE) $(RESOURCE_OBJECT_FILE)
+	$(LINKER) $(LINKER_FLAGS) /PDB:"$(subst .exe,.pdb,$@)" /OUT:"$@" $(C_OBJECT_FILE) $(CPP_OBJECT_FILE) $(LIBRARY_FILE) $(RESOURCE_OBJECT_FILE)
 	$(MANIFEST_TOOL) $(MANIFEST_TOOL_FLAGS) -manifest $(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.intermediate.manifest -outputresource:$(OUTPUT_FILE);1
 
 
@@ -162,7 +177,7 @@ compile_end:
 	@echo .
 
 .PHONY: compile_run
-compile_run: $(OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
+compile_run: $(C_OBJECT_FILE) $(CPP_OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
 
 .PHONY: compile
 compile: compile_begin compile_run compile_end
@@ -238,9 +253,11 @@ check:
 	@echo RESOURCE_OBJECT_BASE_DIRECTORY = $(RESOURCE_OBJECT_BASE_DIRECTORY)
 	@echo RESOURCE_OBJECT_FILE           = $(RESOURCE_OBJECT_FILE)
 	@echo OBJECT_BASE_DIRECTORY          = $(OBJECT_BASE_DIRECTORY)
-	@echo OBJECT_FILE                    = $(OBJECT_FILE)
+	@echo CPP_OBJECT_FILE                = $(CPP_OBJECT_FILE)
+	@echo C_OBJECT_FILE                  = $(C_OBJECT_FILE)
 	@echo SOURCE_BASE_DIRECTORY          = $(SOURCE_BASE_DIRECTORY)
-	@echo SOURCE_FILE                    = $(SOURCE_FILE)
+	@echo CPP_SOURCE_FILE                = $(CPP_SOURCE_FILE)
+	@echo C_SOURCE_FILE                  = $(C_SOURCE_FILE)
 	@echo RESOURCE_BASE_DIRECTORY        = $(RESOURCE_BASE_DIRECTORY)
 	@echo RESOURCE_FILE                  = $(RESOURCE_FILE)
 

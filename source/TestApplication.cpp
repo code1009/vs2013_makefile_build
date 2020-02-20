@@ -21,16 +21,26 @@
 #include <memory.h>
 #include <string.h>
 
-extern int sum(int,int);
-extern int sub(int,int);
-extern int mul(int,int);
-
+extern     int my_sum(int,int);
+extern "C" int my_sub(int,int);
+extern     int my_mul(int,int);
+extern "C" int my_div(int,int);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)
 {
-	char text[32];
-	
-	sprintf(text, "sum()=%d sub()=%d mul()=%d", sum(1,2), sub(1,2), mul(1,2));
+	char text[1024];
+	int a,b;
+
+	a=2;
+	b=2;
+
+	sprintf(text, "sum(%d,%d)=%d\r\nsub(%d,%d)=%d\r\nmul(%d,%d)=%d\r\ndiv(%d,%d)=%d", 
+		a,b,my_sum(a,b), 
+		a,b,my_sub(a,b), 
+		a,b,my_mul(a,b), 
+		a,b,my_div(a,b)
+		);
+
 	MessageBox (NULL, text, "test", MB_OK);
 
 	return 0;

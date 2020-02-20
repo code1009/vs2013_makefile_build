@@ -28,8 +28,11 @@ OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.exe
 # ---------------------------------------------------------------------------
 # input file
 # ---------------------------------------------------------------------------
-SOURCE_FILE = \
+CPP_SOURCE_FILE = \
 	$(SOURCE_BASE_DIRECTORY)/TestApplication.cpp
+
+C_SOURCE_FILE = \
+	$(SOURCE_BASE_DIRECTORY)/TestApplicationSub.c
 
 RESOURCE_FILE = \
 	$(RESOURCE_BASE_DIRECTORY)/Project1.rc

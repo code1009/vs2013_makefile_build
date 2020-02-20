@@ -21,11 +21,14 @@
     <ClCompile Include="source\TestLibrary1.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\TestLibrary2.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\SubDir\TestLibrary3.cpp">
       <Filter>source\SubDir</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestApplicationSub.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestLibrary2.c">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
