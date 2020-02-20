@@ -39,6 +39,9 @@
     <None Include="makefile_build\Project.Makefile.Release.StaticLibrary.Test" />
     <None Include="makefile_build\Makefile.ShellCommand.bat" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="makefile_build\gnumake.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{12F591C8-68A3-4A9D-A241-222DC7A9EFA3}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
