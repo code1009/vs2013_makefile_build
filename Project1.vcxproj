@@ -22,14 +22,20 @@
     <ResourceCompile Include="resource\Project1.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mf\gnumake.zip" />
-    <None Include="mf\libiconv2.dll" />
-    <None Include="mf\libintl3.dll" />
-    <None Include="mf\make.exe" />
-    <None Include="mf\Makefile" />
-    <None Include="mf\MakefileShellCommand.bat" />
-    <None Include="mf\Test.Application.Debug.Makefile" />
-    <None Include="mf\Test.StaticLibrary.Debug.Makefile" />
+    <None Include="makefile_build\gnumake.zip" />
+    <None Include="makefile_build\libiconv2.dll" />
+    <None Include="makefile_build\libintl3.dll" />
+    <None Include="makefile_build\make.exe" />
+    <None Include="makefile_build\Makefile" />
+    <None Include="makefile_build\Makefile.Debug.Application" />
+    <None Include="makefile_build\Makefile.Debug.Application.Test" />
+    <None Include="makefile_build\Makefile.Debug.StaticLibrary" />
+    <None Include="makefile_build\Makefile.Debug.StaticLibrary.Test" />
+    <None Include="makefile_build\Makefile.Release.Application" />
+    <None Include="makefile_build\Makefile.Release.Application.Test" />
+    <None Include="makefile_build\Makefile.Release.StaticLibrary" />
+    <None Include="makefile_build\Makefile.Release.StaticLibrary.Test" />
+    <None Include="makefile_build\Makefile.ShellCommand.bat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{12F591C8-68A3-4A9D-A241-222DC7A9EFA3}</ProjectGuid>
@@ -57,22 +63,29 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>mf\make -C mf build</NMakeBuildCommandLine>
-    <NMakeCleanCommandLine>mf\make -C mf clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>mf\make -C mf all</NMakeReBuildCommandLine>
-    <NMakeOutput>mf\build_DEBUG_app_output\test.exe</NMakeOutput>
+    <NMakeCleanCommandLine>makefile_build\make -C makefile_build debug_clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>makefile_build\make -C makefile_build debug_build</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>makefile_build\make -C makefile_build debug_rebuild</NMakeReBuildCommandLine>
+    <NMakeOutput>makefile_build\build_debug_output_app\test.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <OutDir>$(ProjectDir)</OutDir>
     <IntDir>$(ProjectDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>mf\make -C mf build</NMakeBuildCommandLine>
-    <NMakeCleanCommandLine>mf\make -C mf clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>mf\make -C mf all</NMakeReBuildCommandLine>
-    <NMakeOutput>mf\build_DEBUG_app_output\test.exe</NMakeOutput>
+    <NMakeCleanCommandLine>makefile_build\make -C makefile_build release_clean</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine>makefile_build\make -C makefile_build release_build</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>makefile_build\make -C makefile_build release_rebuild</NMakeReBuildCommandLine>
+    <NMakeOutput>makefile_build\build_release_output_app\test.exe</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <OutDir>$(ProjectDir)</OutDir>
+    <IntDir>$(ProjectDir)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog>
+      <Path>$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <BuildLog>
       <Path>$(MSBuildProjectName).log</Path>
     </BuildLog>

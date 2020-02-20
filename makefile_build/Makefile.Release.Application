@@ -1,44 +1,14 @@
 # ===========================================================================
-# ===========================================================================
-# input directory
-# ===========================================================================
-SOURCE_BASE_DIRECTORY   = ../source
-RESOURCE_BASE_DIRECTORY = ../resource
-
-# ===========================================================================
-# output directory
-# ===========================================================================
-OUTPUT_BASE_DIRECTORY          = build_DEBUG_app_output
-OBJECT_BASE_DIRECTORY          = build_DEBUG_app_object
-RESOURCE_OBJECT_BASE_DIRECTORY = build_DEBUG_app_object
-
-# ===========================================================================
-# output file
-# ===========================================================================
-OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.exe
-
-# ===========================================================================
-# input file
-# ===========================================================================
-SOURCE_FILE = \
-	$(SOURCE_BASE_DIRECTORY)/TestApplication.cpp
-
-RESOURCE_FILE = \
-	$(RESOURCE_BASE_DIRECTORY)/Project1.rc
-
-LIBRARY_FILE = \
-	build_DEBUG_lib_output/Test.lib
-
-
-
-# ===========================================================================
-# ===========================================================================
 # intermedia file
 # ===========================================================================
+# ---------------------------------------------------------------------------
 RESOURCE_OBJECT_FILE_0 = $(subst $(RESOURCE_BASE_DIRECTORY),$(RESOURCE_OBJECT_BASE_DIRECTORY),$(RESOURCE_FILE))
 RESOURCE_OBJECT_FILE_1 = $(subst .rc,.res,$(RESOURCE_OBJECT_FILE_0))
 RESOURCE_OBJECT_FILE   = $(RESOURCE_OBJECT_FILE_1)
 
+
+
+# ---------------------------------------------------------------------------
 OBJECT_FILE_0 = $(subst $(SOURCE_BASE_DIRECTORY),$(OBJECT_BASE_DIRECTORY),$(SOURCE_FILE))
 OBJECT_FILE_1 = $(subst .cpp,.obj,$(OBJECT_FILE_0))
 OBJECT_FILE_2 = $(subst .c,.obj,$(OBJECT_FILE_1))
@@ -46,77 +16,89 @@ OBJECT_FILE   = $(OBJECT_FILE_2)
 
 
 
-# ===========================================================================
+
+
 # ===========================================================================
 # tool
 # ===========================================================================
+# ---------------------------------------------------------------------------
 COMPILER = @cl
 COMPILER_FLAGS_CPP = \
 	/nologo \
 	/GS \
+	/GL \
 	/analyze- \
 	/W3 \
+	/Gy \
 	/Zc:wchar_t \
-	/ZI \
-	/Gm \
-	/Od \
+	/Zi \
+	/Gm- \
+	/O2 \
 	/fp:precise \
 	/errorReport:prompt \
 	/WX- \
 	/Zc:forScope \
-	/RTC1 \
 	/Gd \
 	/Oy- \
-	/MTd \
+	/Oi \
+	/MT \
 	/EHsc \
-	/D "WIN32" /D "_WINDOWS" /D "STRICT" /D "_DEBUG" /D "_CRT_SECURE_NO_WARNINGS" /D "_WINSOCK_DEPRECATED_NO_WARNINGS" /D "_MBCS" 
+	/D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_CRT_SECURE_NO_WARNINGS" /D "_WINSOCK_DEPRECATED_NO_WARNINGS" /D "_MBCS" 
 
 
-# ===========================================================================
+
+# ---------------------------------------------------------------------------
 RESOURCE_COMPILER = @rc
 RESOURCE_COMPILER_FLAGS = \
 	/nologo \
-	/l 0x412 \
-	/D "_DEBUG"
+	/l 0x412
 
 
-# ===========================================================================
+
+# ---------------------------------------------------------------------------
 MANIFEST_TOOL = @mt
 MANIFEST_TOOL_FLAGS = \
 	/nologo \
 	/verbose
 
 
-# ===========================================================================
+
+# ---------------------------------------------------------------------------
 LINKER = @link
 LINKER_FLAGS = \
 	/NOLOGO \
 	/DYNAMICBASE "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib" \
-	/DEBUG \
 	/MACHINE:X86 \
-	/INCREMENTAL \
+	/INCREMENTAL:NO \
 	/NXCOMPAT \
 	/SUBSYSTEM:WINDOWS \
 	/ERRORREPORT:PROMPT \
 	/TLBID:1 \
+	/LTCG \
+	/OPT:REF \
+	/SAFESEH \
+	/OPT:ICF \
 	/MANIFEST \
 	/MANIFESTUAC:"level='asInvoker' uiAccess='false'" \
 	/ManifestFile:"$(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.intermediate.manifest"
 
 
-# ===========================================================================
-SHELL_COMMAND = @MakefileShellCommand.bat
+
+# ---------------------------------------------------------------------------
+SHELL_COMMAND = @Makefile.ShellCommand.bat
 
 
 
+
+
 # ===========================================================================
-# ===========================================================================
+# ---------------------------------------------------------------------------
 #.DEFAULT_GOAL = all
 
 
 
 # ===========================================================================
-# ===========================================================================
+# ---------------------------------------------------------------------------
 ifeq '$(MAKECMDGOALS)' ''
 prepared_error:
 	@echo NO TARGET!
@@ -124,10 +106,12 @@ endif
 
 
 
-# ===========================================================================
+
+
 # ===========================================================================
 # intermedia file creation
 # ===========================================================================
+# ---------------------------------------------------------------------------
 #%.obj: %.cpp
 #$(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
@@ -135,6 +119,9 @@ $(OBJECT_BASE_DIRECTORY)/%.obj: $(SOURCE_BASE_DIRECTORY)/%.cpp
 	$(SHELL_COMMAND) mkdir $(@D)
 	$(COMPILER) $(COMPILER_FLAGS_CPP) /Fa$(subst .obj,.asm,$@) /Fd$(subst .obj,.pdb,$@) /Fo$@ /c $<
 
+
+
+# ---------------------------------------------------------------------------
 #%.res: %.rc
 #$(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
 $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
@@ -144,7 +131,8 @@ $(RESOURCE_OBJECT_BASE_DIRECTORY)/%.res: $(RESOURCE_BASE_DIRECTORY)/%.rc
 
 
 
-# ===========================================================================
+
+
 # ===========================================================================
 # output file creation
 # ===========================================================================
@@ -154,6 +142,8 @@ $(OUTPUT_FILE): $(OBJECT_FILE) $(RESOURCE_OBJECT_FILE)
 	$(LINKER) $(LINKER_FLAGS) /PDB:"$(subst .exe,.pdb,$@)" /OUT:"$@" $(OBJECT_FILE) $(LIBRARY_FILE) $(RESOURCE_OBJECT_FILE)
 	$(MANIFEST_TOOL) $(MANIFEST_TOOL_FLAGS) -manifest $(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.intermediate.manifest -outputresource:$(OUTPUT_FILE);1
 #	$(MANIFEST_TOOL) $(MANIFEST_TOOL_FLAGS) /out:"$(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.embed.manifest" "$(RESOURCE_OBJECT_BASE_DIRECTORY)/exe.embed.manifest.res"
+
+
 
 
 
@@ -180,6 +170,8 @@ compile: compile_begin compile_run compile_end
 
 
 
+
+
 # ===========================================================================
 # link
 # ===========================================================================
@@ -203,6 +195,8 @@ link: link_begin link_run link_end
 
 
 
+
+
 # ===========================================================================
 # clean
 # ===========================================================================
@@ -220,6 +214,8 @@ clean:
 
 
 
+
+
 # ===========================================================================
 # logo
 # ===========================================================================
@@ -228,6 +224,8 @@ logo:
 	@echo *****************************************************************************
 	@echo * Makefile : $(OUTPUT_FILE)
 	@echo *****************************************************************************
+
+
 
 
 
@@ -248,6 +246,8 @@ check:
 
 
 
+
+
 # ===========================================================================
 # rebuild
 # ===========================================================================
@@ -256,11 +256,15 @@ rebuild: logo clean compile link
 
 
 
+
+
 # ===========================================================================
 # build
 # ===========================================================================
 .PHONY: build
 build: logo compile link
+
+
 
 
 

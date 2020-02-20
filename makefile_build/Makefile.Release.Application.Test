@@ -1,0 +1,49 @@
+# ===========================================================================
+# project dependent
+# ===========================================================================
+# ---------------------------------------------------------------------------
+# input directory
+# ---------------------------------------------------------------------------
+SOURCE_BASE_DIRECTORY   = ../source
+RESOURCE_BASE_DIRECTORY = ../resource
+
+
+
+# ---------------------------------------------------------------------------
+# output directory
+# ---------------------------------------------------------------------------
+OUTPUT_BASE_DIRECTORY          = build_release_output_app
+OBJECT_BASE_DIRECTORY          = build_release_object_app
+RESOURCE_OBJECT_BASE_DIRECTORY = build_release_object_app
+
+
+
+# ---------------------------------------------------------------------------
+# output file
+# ---------------------------------------------------------------------------
+OUTPUT_FILE = $(OUTPUT_BASE_DIRECTORY)/Test.exe
+
+
+
+# ---------------------------------------------------------------------------
+# input file
+# ---------------------------------------------------------------------------
+SOURCE_FILE = \
+	$(SOURCE_BASE_DIRECTORY)/TestApplication.cpp
+
+RESOURCE_FILE = \
+	$(RESOURCE_BASE_DIRECTORY)/Project1.rc
+
+LIBRARY_FILE = \
+	build_release_output_lib/Test.lib
+
+
+
+
+
+# ===========================================================================
+include Makefile.Release.Application
+
+
+
+

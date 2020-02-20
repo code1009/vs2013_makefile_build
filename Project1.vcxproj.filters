@@ -7,8 +7,8 @@
     <Filter Include="resource">
       <UniqueIdentifier>{1d19c7d2-4d81-4d1a-b795-27a57699f0db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="mf">
-      <UniqueIdentifier>{eb3f7e90-6abc-45d6-b110-7bf229621e46}</UniqueIdentifier>
+    <Filter Include="makefile_build">
+      <UniqueIdentifier>{7d2145b4-3cec-4538-a71e-9273e998f364}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,29 +33,47 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mf\gnumake.zip">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\libintl3.dll">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\libiconv2.dll">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\make.exe">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\libintl3.dll">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\make.exe">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile.Debug.Application">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\Makefile">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile.Debug.Application.Test">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\MakefileShellCommand.bat">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile.Debug.StaticLibrary">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\Test.Application.Debug.Makefile">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile.Debug.StaticLibrary.Test">
+      <Filter>makefile_build</Filter>
     </None>
-    <None Include="mf\Test.StaticLibrary.Debug.Makefile">
-      <Filter>mf</Filter>
+    <None Include="makefile_build\Makefile.Release.Application">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Makefile.Release.Application.Test">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Makefile.Release.StaticLibrary">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Makefile.Release.StaticLibrary.Test">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\Makefile.ShellCommand.bat">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\gnumake.zip">
+      <Filter>makefile_build</Filter>
+    </None>
+    <None Include="makefile_build\libiconv2.dll">
+      <Filter>makefile_build</Filter>
     </None>
   </ItemGroup>
 </Project>
