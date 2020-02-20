@@ -45,7 +45,7 @@ LIBRARY_FILE = \
 
 
 # ===========================================================================
-include Makefile.Debug.Application
+include Makefile.Application.Debug
 
 
 

@@ -45,7 +45,7 @@ LIBRARY_FILE = \
 
 
 # ===========================================================================
-include Makefile.Release.Application
+include Makefile.Application.Release
 
 
 

@@ -70,7 +70,7 @@ C_SOURCE_FILE = \
 
 
 # ===========================================================================
-include Makefile.Debug.StaticLibrary
+include Makefile.StaticLibrary.Debug
 
 
 

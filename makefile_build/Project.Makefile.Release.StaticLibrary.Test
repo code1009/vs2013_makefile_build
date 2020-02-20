@@ -38,7 +38,7 @@ C_SOURCE_FILE = \
 
 
 # ===========================================================================
-include Makefile.Release.StaticLibrary
+include Makefile.StaticLibrary.Release
 
 
 
